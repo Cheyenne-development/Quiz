@@ -6,15 +6,58 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
-h1 {
+main{
+  color: white;
+  background-image: url(/images/eta_carinae.jpg);
+  height:
+}
+
+form input {
+  margin-bottom: 5px;
+}
+
+
+.mainPage, .questionPage, .correctPage, .incorrectPage, .finalPage {
+  color: white;
+  padding: 100px;
+} 
+ 
+h1, h2, p {
+  color: white;
   text-align: center;
-  font-size: 48px;
 }
 
-.title  {
-  padding-bottom: 250px;
+h1, h2 {
+  padding-top: 20px;
 }
 
-.start-button {
-  padding: 0 47%;
+
+.status, .score, .numberCorrect  {
+  text-align: center;
 }
+
+.startButton, .continueButton, .startOver {
+  width: 120px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+.answerBox {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+ .correctPage,  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  }
+
+/*@media all and (min-width: 800px) {
+  
+
+}*/
+  
