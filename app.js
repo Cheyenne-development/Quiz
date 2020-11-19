@@ -134,15 +134,6 @@ const store = {
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
 // These functions return HTML templates
-
-/********** RENDER FUNCTION(S) **********/
-
-// This function conditionally replaces the contents of the <main> tag based on the state of the store
-
-/********** EVENT HANDLER FUNCTIONS **********/
-
-
-// These functions handle events (submit, click, etc)
 function generateMainPage() {
   return `<div class="mainPage">
   <h2>Cosmology</h2>
@@ -153,17 +144,6 @@ function generateMainPage() {
   </div>`
 
 }
-
-function handleStartQuiz() {
-  $('main').on('click', '#startQuiz', function (event) {
-    store.quizStarted = true;
-
-    render();
-  })
-
-}
-
-
 
 function generateQuestionPage() {
   let question = store.questions[store.questionNumber];
@@ -189,23 +169,6 @@ function generateQuestionPage() {
   </div>
   </div>`
 
-}
-
-function handleAnswerSubmission() {
-  $('main').on('submit', '#question', function (event) {
-    event.preventDefault();
-    let chosenAnswer = $("input[name='answer']:checked").val();
-
-
-    if (chosenAnswer === store["questions"][`${store.questionNumber}`]["correctAnswer"]) {
-      store.score++
-      store.correct++
-    }
-    console.log(store.correct)
-    store.questionNumber++;
-    store.continue++
-    render();
-  })
 }
 
 function generateCorrectPage() {
@@ -243,6 +206,58 @@ function generateFinalPage() {
     </div>`
 }
 
+/********** RENDER FUNCTION(S) **********/
+
+// This function conditionally replaces the contents of the <main> tag based on the state of the store
+function render() {
+  let html = "";
+  if (!store.quizStarted) {
+    html = generateMainPage()
+  } else if (store.questionNumber < store.questions.length && store.continue === 0) {
+    html = generateQuestionPage();
+  } else if (store.questionNumber < store.questions.length && store.correct === 1) {
+    store.correct--;
+    html = generateCorrectPage();
+  } else if (store.questionNumber < store.questions.length) {
+    html = generateIncorrectPage();
+  }
+  else {
+    html = generateFinalPage();
+  }
+    $('main').html(html)
+}
+
+/********** EVENT HANDLER FUNCTIONS **********/
+
+
+// These functions handle events (submit, click, etc)
+function handleStartQuiz() {
+  $('main').on('click', '#startQuiz', function (event) {
+    store.quizStarted = true;
+
+    render();
+  })
+
+}
+
+function handleAnswerSubmission() {
+  $('main').on('submit', '#question', function (event) {
+    event.preventDefault();
+    let chosenAnswer = $("input[name='answer']:checked").val();
+
+
+    if (chosenAnswer === store["questions"][`${store.questionNumber}`]["correctAnswer"]) {
+      store.score++
+      store.correct++
+    }
+    store.questionNumber++;
+    store.continue++
+    render();
+  })
+}
+
+
+
 function handleStartOver() {
   $('main').on('click', '#startOver', function (event) {
     store.quizStarted = false;
@@ -279,8 +294,7 @@ function render() {
   else {
     html = generateFinalPage();
   }
-  console.log(store.correct)
-  $('main').html(html)
+    $('main').html(html)
 }
 
 function main() {

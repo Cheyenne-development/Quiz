@@ -6,10 +6,24 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
-main{
+body, html {
+  height: 100%;
+  margin: 0;
   color: white;
-  background-image: url(images/etacarinae.jpg);
-  height:
+}
+
+
+.bg {
+  background-image: url(images/Eta_Carinae_1.jpg);
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1{
+  font-size: 48px;
+  text-align: center;
 }
 
 form input {
@@ -18,13 +32,16 @@ form input {
 
 
 .mainPage, .questionPage, .correctPage, .incorrectPage, .finalPage {
-  color: white;
-  padding: 100px;
+  margin-top: 100px;
+  padding: 100px 100px 100px 100px;
+  background: rgba(252, 252, 252, .15);
+  color: black;
+  font-weight: bold;
 } 
  
-h1, h2, p {
-  color: white;
+h2, p {
   text-align: center;
+  font-size: 28px;
 }
 
 h1, h2 {
@@ -34,6 +51,7 @@ h1, h2 {
 
 .status, .score, .numberCorrect  {
   text-align: center;
+  font-size: 24px;
 }
 
 .startButton, .continueButton, .startOver {
@@ -46,6 +64,7 @@ h1, h2 {
 .answerBox {
   width: fit-content;
   margin: 0 auto;
+  font-size: 24px;
 }
 
  
