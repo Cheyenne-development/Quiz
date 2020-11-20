@@ -209,16 +209,19 @@ function generateFinalPage() {
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
+
 function render() {
+  console.log(store.questionNumber, store.continue, store.correct)
+  
+
   let html = "";
   if (!store.quizStarted) {
     html = generateMainPage()
   } else if (store.questionNumber < store.questions.length && store.continue === 0) {
     html = generateQuestionPage();
-  } else if (store.questionNumber < store.questions.length && store.correct === 1) {
-    store.correct--;
+  } else if (store.questionNumber <= store.questions.length && store.correct === 1) {
     html = generateCorrectPage();
-  } else if (store.questionNumber < store.questions.length) {
+  } else if (store.questionNumber <= store.questions.length && store.continue === 1) {
     html = generateIncorrectPage();
   }
   else {
@@ -226,7 +229,6 @@ function render() {
   }
     $('main').html(html)
 }
-
 /********** EVENT HANDLER FUNCTIONS **********/
 
 
@@ -234,6 +236,7 @@ function render() {
 function handleStartQuiz() {
   $('main').on('click', '#startQuiz', function (event) {
     store.quizStarted = true;
+    store.questionNumber= 0
 
     render();
   })
@@ -263,39 +266,27 @@ function handleStartOver() {
     store.quizStarted = false;
     store.questionNumber = 0;
     store.score = 0;
+    store.continue = 0;
+    store.correct = 0;
+    
     render();
   })
 
 }
 
 function handleContinue() {
+ /* if (store.questionNumber = store.questions.length){
+    store.questionNumber++;
+  }*/
   $('main').on('click', '#continue', function (event) {
-    store.continue = 0
-    store.correct = 0
+    store.continue = 0;
+    store.correct = 0;
+
     render();
   })
 
 }
 
-
-
-function render() {
-  let html = "";
-  if (!store.quizStarted) {
-    html = generateMainPage()
-  } else if (store.questionNumber < store.questions.length && store.continue === 0) {
-    html = generateQuestionPage();
-  } else if (store.questionNumber < store.questions.length && store.correct === 1) {
-    store.correct--;
-    html = generateCorrectPage();
-  } else if (store.questionNumber < store.questions.length) {
-    html = generateIncorrectPage();
-  }
-  else {
-    html = generateFinalPage();
-  }
-    $('main').html(html)
-}
 
 function main() {
 
